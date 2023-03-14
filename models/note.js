@@ -6,7 +6,7 @@ const url = process.env.MONGODB_URI;
 mongoose.set('strictQuery', false);
 mongoose
   .connect(url)
-  .then((result) => {
+  .then(() => {
     console.log('Connected!');
   })
   .catch((error) => {
@@ -14,7 +14,11 @@ mongoose
   });
 
 const noteSchema = new mongoose.Schema({
-  content: String,
+  content: {
+    type: String,
+    minLength: 5,
+    required: true,
+  },
   important: Boolean,
 });
 

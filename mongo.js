@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const password = process.env.PASSWORD;
 
-const url = `mongodb+srv://adewalekujore6:${password}@cluster0.n2jvz1g.mongodb.net/noteApp?retryWrites=true&w=majority`;
+const url = ``;
 mongoose.set('strictQuery', false);
 mongoose.connect(url);
 
