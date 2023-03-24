@@ -1,17 +1,23 @@
 const config = require('./utils/config');
 const express = require('express');
 require('express-async-errors');
+require('dotenv').config();
 const app = express();
 const cors = require('cors');
 const notesRouter = require('./controllers/notes');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const mongoose = require('mongoose');
-
+const userRouter = require('./controllers/users');
+const loginRouter = require('./controllers/login');
 mongoose.set('strictQuery', false);
 
-logger.info('connecting to', config.MONGODB_URI);
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing');
+  app.use('/api/testing', testingRouter);
+}
 
+logger.info('connecting to', config.MONGODB_URI);
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {
@@ -26,7 +32,9 @@ app.use(express.static('build'));
 app.use(express.json());
 app.use(middleware.requestLogger);
 
+app.use('/api/login', loginRouter);
 app.use('/api/notes', notesRouter);
+app.use('/api/users', userRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

@@ -1,7 +1,35 @@
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "Wale",
+    "name": "admin",
+    "password": "salainesn"
+}
+
+### 
+
 POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-    "content": "this is a test",
-    "important": "true"
+    "content": "check check 155 2 3 5",
+    "important": true,
+    "userId": "641444cf29078c2c66fab4df"
+}
+
+###
+GET http://localhost:3001/api/users
+
+###
+GET http://localhost:3001/api/notes
+
+
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username":"Wale",
+    "password":"salainesn"
 }
